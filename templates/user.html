@@ -1,8 +1,15 @@
-{% if user %}
-    <h1>{{ user.name }}</h1>
-    <p>Id: {{user.id}}</p>
-    <p>Email: {{ user.email }}</p>
-    <p>Role: {{ user.role }}</p>
-{% else %}
-    <p>User not found</p>
-{% endif %}
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-5" style="max-width: 450px;">
+    <h4 class="mb-4 text-secondary fw-semibold text-center">User Details</h4>
+    
+    {% if user %}
+        <p><strong>Name:</strong> {{ user.name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Role:</strong> {{ user.role }}</p>
+    {% else %}
+        <p>User not found</p>
+    {% endif %}
+  </div>
+{% endblock %}
