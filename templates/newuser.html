@@ -1,3 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-5" style="max-width: 450px;">
+    <h4 class="mb-4 text-secondary fw-semibold text-center">Add New User</h4>
+    
+    <form action="/new_user" method="POST">
+        <div class="mb-3">
+            <label for="name" class="form-label small text-muted">Name</label>
+            <input type="text" id="name" name="name" class="form-control" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="email" class="form-label small text-muted">Email</label>
+            <input type="email" id="email" name="email" class="form-control" required>
+        </div>
+        
+        <div class="mb-4">
+            <label for="role" class="form-label small text-muted">Role</label>
+            <input type="text" id="role" name="role" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-dark w-100 py-2">Submit</button>
+    </form>
+</div>
+{% endblock %}
+
+<!-- 
+
 <form action="/new_user" method="POST">
     <div>
         <label for="name">Name:</label>
@@ -15,4 +44,4 @@
     </div>
 
     <button type="submit">Submit</button>
-</form>
+</form> -->

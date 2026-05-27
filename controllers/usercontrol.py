@@ -10,10 +10,10 @@ SessionLocal = sessionmaker(bind=engine)
 user_bp = Blueprint("user_bp", __name__)
 
 
+#by default it will render index.html page when we hit the root url of our application
 @user_bp.route("/", methods=["GET"])
 def index():
-    return "Welcome to User API"
-
+    return render_template("index.html")
 
 #get request for hello word
 @user_bp.route("/hello",methods=["GET"])
@@ -25,7 +25,7 @@ def hello():
 def get():
     with SessionLocal() as session:
         all_user = session.query(User).all()
-        return render_template("index.html", users=all_user)
+        return render_template("users.html", users=all_user)
     # if conenction got cancelled or not found any record
     return "Invalid credentials", 401
 
