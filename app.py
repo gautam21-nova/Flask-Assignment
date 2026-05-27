@@ -7,7 +7,7 @@ from controllers.usercontrol import user_bp
 app = Flask(__name__)
 
 #middleware for establishing our controllers
-app.register_blueprint(user_bp,prefix="/auth")
+app.register_blueprint(user_bp)
 
 #to create databse or related table if not created it will create it
 Base.metadata.create_all(bind=engine)
