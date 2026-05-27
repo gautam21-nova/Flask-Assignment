@@ -1,75 +1,117 @@
-# Flask Application
+# Flask User Management System
 
-A robust REST API / Web Application built using the **Flask** framework, powered by a **MySQL** database, and managed via the **SQLAlchemy** ORM.
-
----
+A lightweight User Management application built with **Flask**, **SQLAlchemy ORM**, and **MySQL**. This project demonstrates a clean MVC-like architecture with Blueprints, centralized database configuration, and template rendering.
 
 ## 🚀 Features
 
-* **RESTful API / Web Routes:** Clean and structured endpoints for data handling.
-* **Object-Relational Mapping (ORM):** Database interactions managed seamlessly via SQLAlchemy.
-* **Database Migrations:** Easy schema updates and tracking (Optional: if using Flask-Migrate).
-* **Environment Configuration:** Secure handling of database credentials using environment variables.
+- **User Registration**: Add new users with roles via a web form.
+- **User Directory**: View a list of all registered users.
+- **Profile View**: Fetch specific user details by ID.
+- **Database Integration**: Automated table creation using SQLAlchemy.
+- **Blueprint Architecture**: Modular routing for better scalability.
 
----
+## 🛠️ Tech Stack
 
-## 🛠️ Prerequisites
+- **Backend**: Python, Flask
+- **Database**: MySQL
+- **ORM**: SQLAlchemy
+- **Frontend**: Jinja2 Templates, Bootstrap (via templates)
 
-Before you begin, ensure you have the following installed on your local machine:
+## 📂 Project Structure
 
-* **Python:** version 3.8 or higher.
-* **MySQL Server:** A running MySQL instance (local or hosted).
-* **Git:** To clone and manage the repository.
-
----
-
-## 📦 Getting Started
-
-Follow these steps to get a local copy of the project up and running.
-
-### 1. Clone the Repository
-```bash
-git clone [https://github.com/gautam21-nova/Flask-Assignment/steptech_assigment](https://github.com/gautam21-nova/steptech_assigment.git)
-cd your-repo-name
+```text
+Python-Assesment/
+├── app.py              # Application entry point & configuration
+├── controllers/
+│   └── usercontrol.py  # Route handlers and business logic
+├── db/
+│   └── userdbcontext.py # Database models (User schema)
+├── templates/          # HTML files (index, users, newuser, etc.)
+├── utils/
+│   └── settings.py     # Database engine & connection settings
+└── Requirements.txt    # Python dependencies
 ```
 
-2. Set Up a Virtual Environment
-It is highly recommended to use a virtual environment to isolate project dependencies.
+## ⚙️ Setup Instructions
 
-```bash
-# Create virtual environment
-python -m venv venv
+1. **Prerequisites**:
+   Ensure you have Python installed and a MySQL server running.
 
-# Activate it
-# On Windows:
-venv\Scripts\activate
-# On macOS/Linux:
-source venv/bin/activate
-```
+2. **Install Dependencies**:
+   ```bash
+   pip install flask sqlalchemy pymysql
+   ```
 
-3. Install Dependencies
-Install all the required Python packages:
+3. **Database Configuration**:
+   Update the connection string in `utils/settings.py` with your MySQL credentials:
+   ```python
+   raw_password = "your_password"
+   engine = create_engine(f"mysql+pymysql://root:{encoded_password}@localhost:3306/users")
+   ```
 
-```bash
-pip install -r requirements.txt
-```
-Note: Your requirements.txt should include packages like Flask, SQLAlchemy, and PyMySQL or mysqlclient.
+4. **Run the Application**:
+   ```bash
+   python app.py
+   ```
+   The app will start at `http://127.0.0.1:5000`.
 
-4. Configure Environment
-Create a .venv file in the root directory of the project to install libraries, creates an isolated workspace for a project, allowing you to install specific package versions without interfering with your global Python installation or other projects:
+## 🗄️ Database Setup (Manual SQL)
 
-```bash
-python -m venv .venv
-```
-Activate: This "tricks" your terminal into using the environment's specific Python and pip instead of the global ones.
-Windows: 
-```bash
-.venv\Scripts\activate.bat
-```
-macOS/Linux:
-```bash
-source .venv/bin/activate
-```
+To initialize the database environment manually before running the Flask application, the following SQL sequence was used:
 
-Install: Use pip to install packages only for this project.
-Deactivate: Return to your global settings by simply typing (deactivate).
+1. **Check for existing databases**:
+   ```sql
+   SHOW DATABASES;
+   ```
+2. **Create the 'users' database**:
+   ```sql
+   CREATE DATABASE users;
+   ```
+3. **Create the 'users' table**:
+   ```sql
+   CREATE TABLE users (
+       id INT PRIMARY KEY AUTO_INCREMENT,
+       name VARCHAR(255),
+       email VARCHAR(255),
+       role VARCHAR(255)
+   );
+   ```
+4. **Seed initial user data**:
+   ```sql
+   INSERT INTO users (name, email, role) VALUES ('Admin', 'admin@example.com', 'Superuser');
+   ```
+
+## 🔗 API Endpoints
+
+All routes are prefixed with `/auth` as defined in `app.py`.
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET    | `/` | Home Page |
+| GET    | `/hello` | Hello World Message |
+| GET    | `/users` | List all users |
+| GET    | `/users/<id>` | View specific user |
+| GET/POST| `/new_user` | Display form / Submit new user |
+
+## 🤝 Contributing
+
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. **Fork** the Project.
+2. **Create** your Feature Branch (`git checkout -b feature/AmazingFeature`).
+3. **Commit** your Changes (`git commit -m 'Add some AmazingFeature'`).
+4. **Push** to the Branch (`git push origin feature/AmazingFeature`).
+5. **Open** a Pull Request.
+
+## 🔄 Git Workflow
+
+This project follows a standard feature-branch workflow:
+
+- **Main Branch**: The `main` branch contains stable, production-ready code.
+- **Feature Branches**: Use descriptive names for branches (e.g., `feature/user-validation` or `bugfix/connection-leak`).
+- **Pull Requests**: All changes must be submitted via Pull Requests. Please provide a clear description of the changes and link any relevant issues.
+
+### Coding Standards
+- Follow PEP 8 for Python code style.
+- Ensure all database operations are handled within the `SessionLocal` context manager to prevent connection leaks.
+- Document any new routes or utility functions added to the project.
